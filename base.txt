@@ -1,3 +1,6 @@
 - create environment
 -- conda create -p envname python==3.11 -y
 -- conda activate envname/
+
+- setup.py
+-- it is used to package the whole application together 
