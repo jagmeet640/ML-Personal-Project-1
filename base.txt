@@ -9,5 +9,3 @@
 
 - /src/components
 -- contains the project modu... example fetching data, manipulating it, performing different feature engg and EDA
-
----
