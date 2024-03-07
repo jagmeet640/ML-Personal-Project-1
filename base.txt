@@ -1,6 +1,6 @@
 - create environment
 -- conda create -p envname python==3.11 -y
--- conda activate envname/
+-- conda activate C:\Users\jagme\Documents\GitHub\ML-Personal-Project-1\envname
 
 - setup.py
 -- it is used to package the whole application together 
