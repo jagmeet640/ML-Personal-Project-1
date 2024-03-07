@@ -4,3 +4,7 @@
 
 - setup.py
 -- it is used to package the whole application together 
+-- the find packages packages all the folders which contain the file __init__.py so that they can be imported as a library
+-- the -e . in requirments.txt is to directly call setup.py and create the packages
+
+
