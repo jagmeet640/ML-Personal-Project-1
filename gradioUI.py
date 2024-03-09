@@ -4,7 +4,7 @@ import toml
 
 config = toml.load('secret.toml')
 # Function to interact with MySQL database
-def save_to_database(name, age, height, weight, email, phone_number):
+def save_to_database(name, age, height, weight, address, email, phone_number):
     try:
         # Connect to the MySQL database
         connection = pymysql.connect(
@@ -19,10 +19,10 @@ def save_to_database(name, age, height, weight, email, phone_number):
         cursor = connection.cursor()
 
         # Define the SQL query to insert data into the database
-        sql_query = "INSERT INTO student_details (name, age, height, weight, address, email, phone_number) VALUES (%s, %s, %s, %s, %s, %s)"
-
+        sql_query = "INSERT INTO student_details (name, age, height, weight, address, email, phone_number) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        print(type(age))
         # Execute the SQL query with the provided parameters
-        cursor.execute(sql_query, (name, age, height, weight, email, phone_number))
+        cursor.execute(sql_query, (name, age, height, weight, address, email, phone_number))
 
         # Commit changes to the database
         connection.commit()
@@ -38,7 +38,7 @@ def save_to_database(name, age, height, weight, email, phone_number):
 
 
 iface = gr.Interface(fn=save_to_database,
-                     inputs=["text", "number", "number", "number", "text", "text"], 
+                     inputs=["text", "number", "number", "number", "text", "text", "text"], 
                      outputs="text",
                      title="Student Info",
                      description="Enter the student details: ")
