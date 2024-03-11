@@ -20,7 +20,7 @@ def save_to_database(name, age, height, weight, address, email, phone_number):
 
         # Define the SQL query to insert data into the database
         sql_query = "INSERT INTO student_details (name, age, height, weight, address, email, phone_number) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        print(type(age))
+       
         # Execute the SQL query with the provided parameters
         cursor.execute(sql_query, (name, age, height, weight, address, email, phone_number))
 
