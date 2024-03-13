@@ -22,7 +22,9 @@ def getAllEmpData():
 
     sql_query = "SELECT * from employee"
 
-    employee_info = cursor.execute(sql_query)
+    cursor.execute(sql_query)
+
+    employee_info = cursor.fetchall()
 
     myConnection.commit()
 
@@ -47,7 +49,9 @@ def getDesgEmpData(designation):
 
     sql_query = "SELECT * from Employee where designation = %s"
 
-    employee_info = cursor.execute(sql_query, designation)
+    cursor.execute(sql_query, designation)
+
+    employee_info = cursor.fetchall()
 
     myConnection.commit()
 
@@ -73,7 +77,9 @@ def getDeptEmpData(dept):
 
     sql_query = "SELECT * from Employee where department = %s"
 
-    employee_info = cursor.execute(sql_query, dept)
+    cursor.execute(sql_query, dept)
+
+    employee_info = cursor.fetchall()
 
     myConnection.commit()
 
