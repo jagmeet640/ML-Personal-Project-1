@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+import typing
 from typing import List
 
 HYPEN_E ='-e .'
