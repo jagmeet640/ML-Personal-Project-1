@@ -50,9 +50,22 @@ def GetAllEmployeeData():
             return employee_data
     except Exception as e:
         raise HTTPException(status_code= 500, detail="internal server error")
+    
+@app.get("/Salaries/")
+def GetAllSalaries():
+    try:
+        with myConnection.cursor() as cursor:
+            sql_query = "select Company.Employee.EmpID as Id, Company.Employee.name, Company.Employee.Department, Company.Employee.Post, Company.Salaries.HourlyWage * Company.Salaries.Hours_Per_month as Base,Company.Salaries.HourlyWage * 1.5 * Company.Salaries.OverTime_Hours_Per_month as Overtime,(Company.Salaries.HourlyWage * Company.Salaries.Hours_Per_month) + (Company.Salaries.HourlyWage * 1.5 * Company.Salaries.OverTime_Hours_Per_month) as Total from Company.Employee left join Company.Salaries on Company.Employee.EmpID = Company.Salaries.EmpID"
 
+            cursor.execute(sql_query)
 
+            salaries_data = cursor.fetchall()
 
+            if not salaries_data:
+                raise HTTPException(status_code=400, detail="Salaries empty")
+            return salaries_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="internal server error")
 
-
+    
 
