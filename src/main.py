@@ -45,6 +45,7 @@ def GetAllEmployeeData():
             cursor.execute(sql_query)
             employee_data = cursor.fetchall()
             # myConnection.commit()
+            
             if not employee_data:
                 raise HTTPException(status_code=404, detail="Employee data not found")
             return employee_data
@@ -63,6 +64,7 @@ def GetAllSalaries():
 
             if not salaries_data:
                 raise HTTPException(status_code=400, detail="Salaries empty")
+        
             return salaries_data
     except Exception as e:
         raise HTTPException(status_code=500, detail="internal server error")

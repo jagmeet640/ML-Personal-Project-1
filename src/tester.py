@@ -13,3 +13,11 @@ df = pd.DataFrame(data, columns=['ID', 'Name', 'Age', 'Phone', 'Department', 'Ro
 # Display DataFrame
 print("DataFrame:")
 print(df)
+
+salaries = requests.get("http://127.0.0.1:8000/Salaries/")
+sals = salaries.json()
+print(sals)
+
+df_sals = pd.DataFrame(sals, columns=['ID', 'Name', 'Department', 'Role', 'Base', 'Overtime', 'Total'])
+print(df_sals)
+
