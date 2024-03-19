@@ -37,6 +37,32 @@ templates = Jinja2Templates(directory="template")
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.post("/employeeEnter/")
+def enterEmployee(emp: Employee):
+    try:
+        with myConnection.cursor() as cursor:
+            sql_query = "INSERT INTO Employee (EmpID, Name, Age, Number, Department, Post) VALUES (%s, %s, %s, %s, %s, %s);"
+            cursor.execute(sql_query, (emp.EmpID, emp.name, emp.age, emp.number, emp.department, emp.post))
+            myConnection.commit()
+            return emp
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error!!!")
+    
+@app.get("/employeeByName/{name}")
+def getEmpByName(name: str):
+    try: 
+        with myConnection.cursor() as cursor:
+            sql_query = "select * from Employee where name = %s"
+            cursor.execute(sql_query, (name,))
+            employeeByName = cursor.fetchall()
+
+            if not employeeByName: 
+                raise HTTPException(status_code=400, detail="Error empoloyee not found!!!")
+            return employeeByName
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal Server Error!!!")
+            
+
 @app.get("/employees/")
 def GetAllEmployeeData():
     try:
@@ -51,6 +77,35 @@ def GetAllEmployeeData():
             return employee_data
     except Exception as e:
         raise HTTPException(status_code= 500, detail="internal server error")
+    
+
+@app.get("/empByPost/{post}")
+def getAllEmployeePost(post: str):
+    try: 
+        with myConnection.cursor() as cursor:
+            sql_query = "select * from Employee where Post = %s"
+            cursor.execute()
+            employee_post_data = cursor.fetchall(sql_query, (post,))
+
+            if not employee_post_data:
+                raise HTTPException(status_code=400, detail="Employees not found error!!!")
+            return employee_post_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Server Internal error !!!")
+
+@app.get("/empByRole/{dept}")
+def getAllEmployeeDept(dept: str):
+    try:
+        with myConnection.cursor() as cursor:
+            sql_query = "select * from Employee where Department = %s"
+            cursor.execute()
+            employee_dept_data = cursor.fetchall()
+
+            if not employee_dept_data:
+                raise HTTPException(status_code=400, detail="Employee department datanot found!!!")
+            return employee_dept_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal Server error!!!")
     
 @app.get("/Salaries/")
 def GetAllSalaries():
