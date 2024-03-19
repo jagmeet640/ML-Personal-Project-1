@@ -30,7 +30,7 @@ class Employee(BaseModel):
 app = FastAPI()
 
 # Initialize Jinja2 templates
-templates = Jinja2Templates(directory="template")
+templates = Jinja2Templates(directory="templates")
 
 # Define a route for the home page
 @app.get("/", response_class=HTMLResponse)

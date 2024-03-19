@@ -1,0 +1,52 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+</head>
+<body>
+    <h1>Employee Management System</h1>
+    
+    <h2>All Employees</h2>
+    <ul id="employee-list">
+        {% for employee in employees %}
+        <li>{{ employee }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>All Salaries</h2>
+    <ul id="salary-list">
+        {% for salary in salaries %}
+        <li>{{ salary }}</li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        // No changes needed in JavaScript as Jinja templating is only for HTML content
+        fetch('/api/employees')
+            .then(response => response.json())
+            .then(data => {
+                const employeeList = document.getElementById('employee-list');
+                data.forEach(employee => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = JSON.stringify(employee);
+                    employeeList.appendChild(listItem);
+                });
+            });
+
+        fetch('/api/salaries')
+            .then(response => response.json())
+            .then(data => {
+                const salaryList = document.getElementById('salary-list');
+                data.forEach(salary => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = JSON.stringify(salary);
+                    salaryList.appendChild(listItem);
+                });
+            });
+    </script>
+</body>
+</html>
