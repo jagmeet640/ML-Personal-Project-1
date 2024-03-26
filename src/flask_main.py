@@ -1,6 +1,7 @@
 # backend.py (Flask application)
 
 from flask import Flask, render_template, jsonify
+
 import requests
 
 app = Flask(__name__)
@@ -16,6 +17,12 @@ def get_employees():
     # Make a request to your FastAPI endpoint to fetch employee data
     response = requests.get('http://127.0.0.1:8000/employees/')
     return jsonify(response.json())
+
+@app.route('/view')
+def view():
+    employee_data = requests.get('http://127.0.0.1:8000/employees/')
+    employee_data = employee_data.json()
+    return render_template('index_view.html', employee_data=employee_data)
 
 @app.route('/api/salaries')
 def get_salaries():
