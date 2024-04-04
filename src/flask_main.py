@@ -44,6 +44,17 @@ def add_employee():
     else:
         return "Failed to add employee"
 
+@app.route('/deleteEmployeePage')
+def get_deleteEmployeePage():
+    return render_template('index_delete_emp.html')
+
+@app.route('/deleteEmployee', methods=['POST', 'GET'])
+def deleteEmployee():
+    employee_name = request.form['name']
+    sql_query = 'delete from Employee where name = %s'
+    pass
+
+
 @app.route('/view')
 def view():
     employee_data = requests.get('http://127.0.0.1:8000/employees/')
