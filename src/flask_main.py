@@ -51,8 +51,7 @@ def get_deleteEmployeePage():
 @app.route('/deleteEmployee', methods=['POST', 'GET'])
 def deleteEmployee():
     employee_name = request.form['name']
-    sql_query = 'delete from Employee where name = %s'
-    pass
+    requests.delete('http://127.0.0.1:8000/deleteEmployee/', employee_name)
 
 
 @app.route('/view')
