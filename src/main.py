@@ -62,6 +62,17 @@ def getEmpByName(name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error!!!")
             
+@app.delete("/deleteEmployee/{name}")
+def deleteEmployee(name: str):
+    try:
+        with myConnection.cursor() as cursor:
+            sql_query = 'delete from Employee where name = %s'
+            cursor.execute(sql_query, (name,))
+            myConnection.connect()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Error In Deleting!!!")
+    
+
 
 @app.get("/employees/")
 def GetAllEmployeeData():
