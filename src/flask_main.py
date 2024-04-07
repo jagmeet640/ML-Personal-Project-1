@@ -5,7 +5,12 @@ from flask import Flask, render_template, jsonify
 import requests
 from flask import Flask, render_template, request, redirect, url_for
 
+import toml 
+import pymysql
+from pydantic import BaseModel
 import requests
+
+
 
 
 app = Flask(__name__)
@@ -39,6 +44,12 @@ def view():
     # employee_data = employee_data.json()
     # return render_template('index_view.html', employee_data=employee_data)
     return render_template('index_view.html', url_for=url_for)
+
+@app.route('/testMysql')
+def testMySql():
+    employee_data = requests.get('http://127.0.0.1:8000/employees/')
+    employee_data = employee_data.json()
+    return employee_data
 
 
 ## Data base functionality routes :
