@@ -13,17 +13,17 @@ app = Flask(__name__)
 # Define routes to serve HTML templates
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', url_for=url_for)
 
 
 @app.route('/AddEmployeePage')
 def get_addEmployeePage():
-    return render_template('index_add_emp.html')
+    return render_template('index_add_emp.html', url_for=url_for)
 
 
 @app.route('/deleteEmployeePage')
 def get_deleteEmployeePage():
-    return render_template('index_delete_emp.html')
+    return render_template('index_delete_emp.html', url_for=url_for)
 
 # Define routes to serve data through APIs
 @app.route('/api/employees')
@@ -38,7 +38,7 @@ def view():
     # employee_data = requests.get('http://127.0.0.1:8000/employees/')
     # employee_data = employee_data.json()
     # return render_template('index_view.html', employee_data=employee_data)
-    return render_template('index_view.html')
+    return render_template('index_view.html', url_for=url_for)
 
 
 ## Data base functionality routes :
