@@ -88,7 +88,10 @@ def GetAllEmployeeData():
             return employee_data
     except Exception as e:
         raise HTTPException(status_code= 500, detail="internal server error")
-    
+    finally:
+        # Close the database connection in the finally block
+        if myConnection:
+            myConnection.close()
 
 @app.get("/empByPost/{post}")
 def getAllEmployeePost(post: str):
