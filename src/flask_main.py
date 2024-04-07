@@ -15,6 +15,16 @@ app = Flask(__name__)
 def index():
     return render_template('index2.html')
 
+
+@app.route('/AddEmployeePage')
+def get_addEmployeePage():
+    return render_template('index_add_emp.html')
+
+
+@app.route('/deleteEmployeePage')
+def get_deleteEmployeePage():
+    return render_template('index_delete_emp.html')
+
 # Define routes to serve data through APIs
 @app.route('/api/employees')
 def get_employees():
@@ -22,9 +32,9 @@ def get_employees():
     response = requests.get('http://127.0.0.1:8000/employees/')
     return jsonify(response.json())
 
-@app.route('/AddEmployeePage')
-def get_addEmployeePage():
-    return render_template('index_add_emp.html')
+
+## Data base functionality routes :
+
 
 @app.route('/addEmployees', methods=['POST', 'GET'])
 def add_employee():
@@ -44,9 +54,7 @@ def add_employee():
     else:
         return "Failed to add employee"
 
-@app.route('/deleteEmployeePage')
-def get_deleteEmployeePage():
-    return render_template('index_delete_emp.html')
+
 
 @app.route('/deleteEmployee', methods=['POST', 'GET'])
 def deleteEmployee():
