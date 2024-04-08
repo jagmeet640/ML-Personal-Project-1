@@ -40,10 +40,10 @@ def get_employees():
 
 @app.route('/view')
 def view():
-    # employee_data = requests.get('http://127.0.0.1:8000/employees/')
-    # employee_data = employee_data.json()
-    # return render_template('index_view.html', employee_data=employee_data)
-    return render_template('index_view.html', url_for=url_for)
+    employee_data = requests.get('http://127.0.0.1:8000/employees/')
+    employee_data = employee_data.json()
+    return render_template('index_view.html', url_for= url_for, employee_data=employee_data)
+    # return render_template('index_view.html', url_for=url_for)
 
 @app.route('/testMysql')
 def testMySql():

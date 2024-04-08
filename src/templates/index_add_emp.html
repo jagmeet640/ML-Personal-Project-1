@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_main.css') }}">
     <title>Add Employee</title>
 </head>
 <body>
+    <div class="sidenav">
+        <a href="/view">View Employees</a>
+        <a href="/AddEmployeePage">Add Employee</a>
+        <a href="/deleteEmployeePage">Delete Employee</a>
+        <a href="/findSalary">Find Salary</a>
+    </div>
     <h1>Add Employee</h1>
     <form action="/addEmployees" method="post">
         <label for="EmpID">Employee ID:</label><br>

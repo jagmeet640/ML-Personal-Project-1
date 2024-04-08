@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Database</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_view.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_main.css') }}">
 
 </head>
 <body>
+    <div class="sidenav">
+        <a href="/view">View Employees</a>
+        <a href="/AddEmployeePage">Add Employee</a>
+        <a href="/deleteEmployeePage">Delete Employee</a>
+        <a href="/findSalary">Find Salary</a>
+    </div>
     <h1>Employee Database</h1>
 
     <table>

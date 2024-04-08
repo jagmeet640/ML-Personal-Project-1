@@ -51,6 +51,13 @@ def enterEmployee(emp: Employee):
 @app.get("/employeeByName/{name}")
 def getEmpByName(name: str):
     try: 
+        myConnection = pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+)
         with myConnection.cursor() as cursor:
             sql_query = "select * from Employee where name = %s"
             cursor.execute(sql_query, (name,))
@@ -77,21 +84,26 @@ def deleteEmployee(name: str):
 @app.get("/employees/")
 def GetAllEmployeeData():
     try:
-        with myConnection.cursor() as cursor:
-            sql_query = "SELECT * FROM Employee"
-            cursor.execute(sql_query)
-            employee_data = cursor.fetchall()
-            # myConnection.commit()
-            
-            if not employee_data:
-                raise HTTPException(status_code=404, detail="Employee data not found")
-            return employee_data
+        # Establish the connection to MySQL database
+        with pymysql.connect(
+            host=config['database']['host'],
+            user=config['database']['username'],
+            password=config['database']['password'],
+            database=config['database']['database'],
+            port=config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = "SELECT * FROM Employee"
+                cursor.execute(sql_query)
+                employee_data = cursor.fetchall()
+
+                if not employee_data:
+                    raise HTTPException(status_code=404, detail="Employee data not found")
+
+                return employee_data
+
     except Exception as e:
-        raise HTTPException(status_code= 500, detail="internal server error")
-    finally:
-        # Close the database connection in the finally block
-        if myConnection:
-            myConnection.close()
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @app.get("/empByPost/{post}")
 def getAllEmployeePost(post: str):
