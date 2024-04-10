@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Database</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_view.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_main.css') }}">
 
 </head>
@@ -15,28 +14,32 @@
         <a href="/deleteEmployeePage">Delete Employee</a>
         <a href="/findSalary">Find Salary</a>
     </div>
-    <h1>Employee Database</h1>
 
-    <table>
+    <div class="main_box">
+        <h1>Employee Database</h1>
+
+    <table id="view_employees">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Number</th>
-            <th>Department</th>
-            <th>Post</th>
+            <th class="column_headers">ID</th>
+            <th class="column_headers">Name</th>
+            <th class="column_headers">Age</th>
+            <th class="column_headers">Number</th>
+            <th class="column_headers">Department</th>
+            <th class="column_headers">Post</th>
         </tr>
         {% for employee in employee_data %}
             <tr>
-                <td>{{ employee[0] }}</td>
-                <td>{{ employee[1] }}</td>
-                <td>{{ employee[2] }}</td>
-                <td>{{ employee[3] }}</td>
-                <td>{{ employee[4] }}</td>
-                <td>{{ employee[5] }}</td>
+                <td id="employee_column_name">{{ employee[0] }}</td>
+                <td id="employee_column_name">{{ employee[1] }}</td>
+                <td id="employee_column_name">{{ employee[2] }}</td>
+                <td id="employee_column_name">{{ employee[3] }}</td>
+                <td id="employee_column_name">{{ employee[4] }}</td>
+                <td id="employee_column_name">{{ employee[5] }}</td>
             </tr>
         {% endfor %}
     </table>
+    </div>
+    
     
 </body>
 </html>

@@ -40,42 +40,60 @@ templates = Jinja2Templates(directory="templates")
 @app.post("/employeeEnter/")
 def enterEmployee(emp: Employee):
     try:
-        with myConnection.cursor() as cursor:
-            sql_query = "INSERT INTO Employee (EmpID, Name, Age, Number, Department, Post) VALUES (%s, %s, %s, %s, %s, %s);"
-            cursor.execute(sql_query, (emp.EmpID, emp.name, emp.age, emp.number, emp.department, emp.post))
-            myConnection.commit()
-            return emp
+
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = "INSERT INTO Employee (EmpID, Name, Age, Number, Department, Post) VALUES (%s, %s, %s, %s, %s, %s);"
+                cursor.execute(sql_query, (emp.EmpID, emp.name, emp.age, emp.number, emp.department, emp.post))
+                connection.commit()
+                return emp
+            
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error!!!")
     
 @app.get("/employeeByName/{name}")
 def getEmpByName(name: str):
     try: 
-        myConnection = pymysql.connect(
+        with pymysql.connect(
         host= config['database']['host'],
         user= config['database']['username'],
         password= config['database']['password'],
         database= config['database']['database'],
         port= config['database']['port']
-)
-        with myConnection.cursor() as cursor:
-            sql_query = "select * from Employee where name = %s"
-            cursor.execute(sql_query, (name,))
-            employeeByName = cursor.fetchall()
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = "select * from Employee where name = %s"
+                cursor.execute(sql_query, (name,))
+                employeeByName = cursor.fetchall()
 
-            if not employeeByName: 
-                raise HTTPException(status_code=400, detail="Error empoloyee not found!!!")
-            return employeeByName
+                if not employeeByName: 
+                    raise HTTPException(status_code=400, detail="Error empoloyee not found!!!")
+                return employeeByName
+            
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error!!!")
             
 @app.delete("/deleteEmployee/{name}")
 def deleteEmployee(name: str):
     try:
-        with myConnection.cursor() as cursor:
-            sql_query = 'delete from Employee where name = %s'
-            cursor.execute(sql_query, (name,))
-            myConnection.connect()
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = 'delete from Employee where name = %s'
+                cursor.execute(sql_query, (name,))
+                connection.connect()
+
     except Exception as e:
         raise HTTPException(status_code=500, detail="Error In Deleting!!!")
     
@@ -108,45 +126,68 @@ def GetAllEmployeeData():
 @app.get("/empByPost/{post}")
 def getAllEmployeePost(post: str):
     try: 
-        with myConnection.cursor() as cursor:
-            sql_query = "select * from Employee where Post = %s"
-            cursor.execute()
-            employee_post_data = cursor.fetchall(sql_query, (post,))
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = "select * from Employee where Post = %s"
+                cursor.execute()
+                employee_post_data = cursor.fetchall(sql_query, (post,))
 
-            if not employee_post_data:
-                raise HTTPException(status_code=400, detail="Employees not found error!!!")
-            return employee_post_data
+                if not employee_post_data:
+                    raise HTTPException(status_code=400, detail="Employees not found error!!!")
+                return employee_post_data
+            
     except Exception as e:
         raise HTTPException(status_code=500, detail="Server Internal error !!!")
 
 @app.get("/empByRole/{dept}")
 def getAllEmployeeDept(dept: str):
     try:
-        with myConnection.cursor() as cursor:
-            sql_query = "select * from Employee where Department = %s"
-            cursor.execute()
-            employee_dept_data = cursor.fetchall()
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = "select * from Employee where Department = %s"
+                cursor.execute()
+                employee_dept_data = cursor.fetchall()
 
-            if not employee_dept_data:
-                raise HTTPException(status_code=400, detail="Employee department datanot found!!!")
-            return employee_dept_data
+                if not employee_dept_data:
+                    raise HTTPException(status_code=400, detail="Employee department datanot found!!!")
+                return employee_dept_data
+            
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server error!!!")
     
 @app.get("/Salaries/")
 def GetAllSalaries():
     try:
-        with myConnection.cursor() as cursor:
-            sql_query = "select Company.Employee.EmpID as Id, Company.Employee.name, Company.Employee.Department, Company.Employee.Post, Company.Salaries.HourlyWage * Company.Salaries.Hours_Per_month as Base,Company.Salaries.HourlyWage * 1.5 * Company.Salaries.OverTime_Hours_Per_month as Overtime,(Company.Salaries.HourlyWage * Company.Salaries.Hours_Per_month) + (Company.Salaries.HourlyWage * 1.5 * Company.Salaries.OverTime_Hours_Per_month) as Total from Company.Employee left join Company.Salaries on Company.Employee.EmpID = Company.Salaries.EmpID"
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:     
+            with connection.cursor() as cursor:
+                sql_query = "select Company.Employee.EmpID as Id, Company.Employee.name, Company.Employee.Department, Company.Employee.Post, Company.Salaries.HourlyWage * Company.Salaries.Hours_Per_month as Base,Company.Salaries.HourlyWage * 1.5 * Company.Salaries.OverTime_Hours_Per_month as Overtime,(Company.Salaries.HourlyWage * Company.Salaries.Hours_Per_month) + (Company.Salaries.HourlyWage * 1.5 * Company.Salaries.OverTime_Hours_Per_month) as Total from Company.Employee left join Company.Salaries on Company.Employee.EmpID = Company.Salaries.EmpID"
 
-            cursor.execute(sql_query)
+                cursor.execute(sql_query)
 
-            salaries_data = cursor.fetchall()
+                salaries_data = cursor.fetchall()
 
-            if not salaries_data:
-                raise HTTPException(status_code=400, detail="Salaries empty")
-        
-            return salaries_data
+                if not salaries_data:
+                    raise HTTPException(status_code=400, detail="Salaries empty")
+            
+                return salaries_data
     except Exception as e:
         raise HTTPException(status_code=500, detail="internal server error")
 
