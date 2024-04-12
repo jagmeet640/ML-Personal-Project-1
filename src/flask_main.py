@@ -55,23 +55,23 @@ def testMySql():
 ## Data base functionality routes :
 
 
-# @app.route('/addEmployees', methods=['POST', 'GET'])
-# def add_employee():
-#     # Get employee data from form
-#     employee_data = {
-#         'EmpID': request.form['EmpID'],
-#         'name': request.form['name'],
-#         'age': request.form['age'],
-#         'number': request.form['number'],
-#         'department': request.form['department'],
-#         'post': request.form['post']
-#     }
-#     # Send POST request to FastAPI endpoint to add employee
-#     response = requests.post('http://127.0.0.1:8000/employeeEnter/', json=employee_data)
-#     if response.status_code == 200:
-#         return redirect(url_for('view'))  # Redirect to view page if employee added successfully
-#     else:
-#         return "Failed to add employee"
+@app.route('/addEmployees', methods=['POST', 'GET'])
+def add_employee():
+    # Get employee data from form
+    employee_data = {
+        'EmpID': request.form['EmpID'],
+        'name': request.form['name'],
+        'age': str(request.form['age']),
+        'number': request.form['number'],
+        'department': request.form['department'],
+        'post': request.form['post']
+    }
+    # Send POST request to FastAPI endpoint to add employee
+    response = requests.post('http://127.0.0.1:8000/employeeEnter/', json=employee_data)
+    if response.status_code == 200:
+        return redirect(url_for('view'))  # Redirect to view page if employee added successfully
+    else:
+        return "Failed to add employee"
 
 
 
