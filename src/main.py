@@ -79,8 +79,8 @@ def getEmpByName(name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error!!!")
             
-@app.delete("/deleteEmployee/{name}")
-def deleteEmployee(name: str):
+@app.delete("/deleteEmployee/{empID}")
+def deleteEmployee(empID: int):
     try:
         with pymysql.connect(
         host= config['database']['host'],
@@ -90,10 +90,13 @@ def deleteEmployee(name: str):
         port= config['database']['port']
         ) as connection:
             with connection.cursor() as cursor:
-                sql_query = 'delete from Employee where name = %s'
-                cursor.execute(sql_query, (name,))
-                connection.connect()
-
+                print("in delete")
+                print(empID)
+                sql_query = 'delete from Employee where EmpID = %s'
+                cursor.execute(sql_query, (empID,))
+                connection.commit()
+        return {"message": "Student deleted successfully"}
+    
     except Exception as e:
         raise HTTPException(status_code=500, detail="Error In Deleting!!!")
     

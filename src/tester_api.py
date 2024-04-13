@@ -16,6 +16,11 @@ import requests
 # # Print the response
 # print(response.json())
 
-# testing the api for viewing employees
+# testing for deleting employees
+# response = requests.delete("http://127.0.0.1:8000/deleteEmployee/12")
+# print(response.json())
+
+# # testing the api for viewing employees
 response = requests.get("http://127.0.0.1:8000/employees/")
 print(response.json())
+

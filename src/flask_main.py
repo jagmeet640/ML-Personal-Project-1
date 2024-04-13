@@ -75,12 +75,16 @@ def add_employee():
 
 
 
-# @app.route('/deleteEmployee', methods=['POST', 'GET'])
-# def deleteEmployee():
-#     employee_name = request.form['name']
-#     requests.delete('http://127.0.0.1:8000/deleteEmployee/', employee_name)
 
-
+@app.route('/deleteEmployee', methods=['POST'])
+def deleteEmployee():
+    employee_id = int(request.form.get('Employee_ID'))  # Use request.form.get to handle missing key gracefully
+    print(employee_id)
+    response = requests.delete(f'http://127.0.0.1:8000/deleteEmployee/{employee_id}')  # Corrected endpoint URL with f-string
+    if response.status_code == 200:
+        return redirect(url_for('view'))  # Redirect to view page if employee added successfully
+    else:
+        return "Failed to delete employee"
 
 
 # @app.route('/api/salaries')
