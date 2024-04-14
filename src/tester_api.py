@@ -42,3 +42,6 @@ print(response.json())
 
 # response = requests.post("http://127.0.0.1:8000/addSalary/", json=dataSal)
 
+# testing the delete salary endpoint 
+# response = requests.delete("http://127.0.0.1:8000/deleteSalary/9999")
+# print(response.json())

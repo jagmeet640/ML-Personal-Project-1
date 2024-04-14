@@ -190,7 +190,7 @@ def getSalaryInfo():
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Error !!!")
     
-@app.post("/addSalary")
+@app.post("/addSalary/")
 def addSalaryInfo(sal: Salary):
     try:
 
@@ -209,3 +209,24 @@ def addSalaryInfo(sal: Salary):
             
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error!!!")
+    
+@app.delete("/deleteSalary/{empID}")
+def deleteSalary(empID: int):
+    try:
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                print("in delete")
+                print(empID)
+                sql_query = 'delete from Salary where EmpID = %s'
+                cursor.execute(sql_query, (empID,))
+                connection.commit()
+        return {"message": "Student deleted successfully"}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Error In Deleting!!!")
