@@ -21,6 +21,12 @@ import requests
 # print(response.json())
 
 # # testing the api for viewing employees
-response = requests.get("http://127.0.0.1:8000/employees/")
+# response = requests.get("http://127.0.0.1:8000/employees/")
+# print(response.json())
+
+
+# Testing the salary view endpoint
+# # testing the api for viewing employees
+response = requests.get("http://127.0.0.1:8000/salary/")
 print(response.json())
 
