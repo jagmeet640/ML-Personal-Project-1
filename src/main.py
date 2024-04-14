@@ -25,6 +25,14 @@ class Employee(BaseModel):
     department: str
     post: str
 
+class WorkDetails(BaseModel):
+    EmpID: int
+    name: str
+    month: str
+    hoursWorked: int
+    offDays: int
+    leaveDays: int
+
 
 # Initialize the FastAPI app
 app = FastAPI()
@@ -227,6 +235,69 @@ def deleteSalary(empID: int):
                 cursor.execute(sql_query, (empID,))
                 connection.commit()
         return {"message": "Student deleted successfully"}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Error In Deleting!!!")
+    
+
+@app.get("/workDetails/")
+def getWorkDetails():
+    try: 
+        with pymysql.connect(
+            host= config['database']['host'],
+            user= config['database']['username'],
+            password= config['database']['password'],
+            database= config['database']['database'],
+            port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = 'Select * from Work'
+                cursor.execute(sql_query)
+                work_data = cursor.fetchall()
+                if not work_data:
+                    raise HTTPException(status_code=404, detail="Employee data not found")
+                return work_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal Error !!!")
+    
+@app.post("/addWorkDetails/")
+def addWorkDetails(workDetails: WorkDetails):
+    try:
+
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = "INSERT INTO Work (EmpID, name, month, hoursWorked, offDays, leaveDays) VALUES (%s, %s, %s, %s, %s, %s);"
+                cursor.execute(sql_query, (workDetails.EmpID, workDetails.name, workDetails.month, workDetails.hoursWorked, workDetails.offDays, workDetails.leaveDays))
+                connection.commit()
+                return workDetails
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error!!!")
+    
+
+@app.delete("/deleteWorkDetails/{empID}")
+def deleteWorkDetails(empID: int):
+    try:
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                print("in delete")
+                print(empID)
+                sql_query = 'delete from Work where EmpID = %s'
+                cursor.execute(sql_query, (empID,))
+                connection.commit()
+        return {"message": "Employee Work Details Deleted Successfully"}
     
     except Exception as e:
         raise HTTPException(status_code=500, detail="Error In Deleting!!!")

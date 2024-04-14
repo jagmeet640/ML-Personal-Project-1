@@ -27,8 +27,8 @@ import requests
 
 # Testing the salary view endpoint
 # # testing the api for viewing employees
-response = requests.get("http://127.0.0.1:8000/salary/")
-print(response.json())
+# response = requests.get("http://127.0.0.1:8000/salary/")
+# print(response.json())
 
 
 # Testing the addition of salaries
@@ -44,4 +44,27 @@ print(response.json())
 
 # testing the delete salary endpoint 
 # response = requests.delete("http://127.0.0.1:8000/deleteSalary/9999")
+# print(response.json())
+
+
+# testing endpoint to view work details
+response = requests.get("http://127.0.0.1:8000/workDetails/")
+print(response.json())
+
+# testing the add work details end point 
+# dataWork = {
+#     "EmpID": '9999',
+#     "name": 'jagmeet',
+#     "month": '1st may',
+#     "hoursWorked": 50,
+#     "offDays": 2,
+#     "leaveDays": 2
+# }
+
+
+# response = requests.post("http://127.0.0.1:8000/addWorkDetails/", json=dataWork)
+
+# testing the endpoint to delete the work details endpoint 
+
+# response = requests.delete("http://127.0.0.1:8000/deleteWorkDetails/9999")
 # print(response.json())
