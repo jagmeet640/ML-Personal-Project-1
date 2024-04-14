@@ -30,3 +30,15 @@ import requests
 response = requests.get("http://127.0.0.1:8000/salary/")
 print(response.json())
 
+
+# Testing the addition of salaries
+# dataSal = {
+#     "EmpID": '9999',
+#     "name": 'jagmeet',
+#     "JoinDate": '1st may',
+#     "HourlyRate": 50,
+#     "BaseSalary": 50000
+# }
+
+# response = requests.post("http://127.0.0.1:8000/addSalary/", json=dataSal)
+

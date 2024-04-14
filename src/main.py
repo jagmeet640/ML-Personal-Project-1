@@ -9,6 +9,12 @@ from pydantic import BaseModel
 
 config = toml.load('config/secret.toml')
 
+class Salary(BaseModel):
+    EmpID: int
+    name: str
+    JoinDate: str
+    HourlyRate: float
+    BaseSalary: float
 
 
 class Employee(BaseModel):
@@ -183,3 +189,23 @@ def getSalaryInfo():
                 return salary_data
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Error !!!")
+    
+@app.post("/addSalary")
+def addSalaryInfo(sal: Salary):
+    try:
+
+        with pymysql.connect(
+        host= config['database']['host'],
+        user= config['database']['username'],
+        password= config['database']['password'],
+        database= config['database']['database'],
+        port= config['database']['port']
+        ) as connection:
+            with connection.cursor() as cursor:
+                sql_query = "INSERT INTO Company.Salary (EmpID, Name, JoinDate, HourlyRate, BaseSalary) VALUES (%s, %s, %s, %s, %s);"
+                cursor.execute(sql_query, (sal.EmpID, sal.name, sal.JoinDate, sal.HourlyRate, sal.BaseSalary))
+                connection.commit()
+                return sal
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error!!!")
