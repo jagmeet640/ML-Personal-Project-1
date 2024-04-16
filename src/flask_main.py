@@ -37,6 +37,20 @@ def get_employees():
     response = requests.get('http://127.0.0.1:8000/employees/')
     return jsonify(response.json())
 
+@app.route('/addSalaryPage')
+def getAddSalaryPage():
+    return render_template('index_add_salary.html', url_for=url_for)
+
+@app.route('/deleteSalaryPage')
+def getDeleteSalaryPage():
+    return render_template('index_delete_salary.html', url_for=url_for)
+
+@app.route('/viewSalary')
+def viewSalary():
+    salary_data = requests.get("http://127.0.0.1:8000/salary/")
+    salary_data = salary_data.json()
+    return render_template('index_view_salary.html', url_for=url_for, salary_data= salary_data)
+
 
 @app.route('/view')
 def view():
