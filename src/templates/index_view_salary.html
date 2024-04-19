@@ -3,9 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Employee Database</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_main.css') }}">
+
 </head>
 <body>
+    <div class="sidenav">
+        <a href="/view">View Employees</a>
+        <a href="/AddEmployeePage">Add Employee</a>
+        <a href="/deleteEmployeePage">Delete Employee</a>
+        <a href="/viewSalary">Find Salary</a>
+    </div>
+
+    <div class="main_box">
+        <h1>Employee Database</h1>
+
+    <table id="view_employees">
+        <tr>
+            <th class="column_headers">ID</th>
+            <th class="column_headers">Name</th>
+            <th class="column_headers">Month</th>
+            <th class="column_headers">Hours Worked</th>
+            <th class="column_headers">Off Days Worked</th>
+            <th class="column_headers">Leave Days</th>
+        </tr>
+        {% for salary in salary_data %}
+            <tr>
+                <td id="salary_column_name">{{ salary[0] }}</td>
+                <td id="salary_column_name">{{ salary[1] }}</td>
+                <td id="salary_column_name">{{ salary[2] }}</td>
+                <td id="salary_column_name">{{ salary[3] }}</td>
+                <td id="salary_column_name">{{ salary[4] }}</td>
+                <td id="salary_column_name">{{ salary[5] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+    
     
 </body>
 </html>

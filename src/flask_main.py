@@ -45,7 +45,7 @@ def getAddSalaryPage():
 def getDeleteSalaryPage():
     return render_template('index_delete_salary.html', url_for=url_for)
 
-@app.route('/viewSalary')
+@app.route('/viewSalaryPage')
 def viewSalary():
     salary_data = requests.get("http://127.0.0.1:8000/salary/")
     salary_data = salary_data.json()
