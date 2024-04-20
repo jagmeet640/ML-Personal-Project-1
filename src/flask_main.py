@@ -11,8 +11,6 @@ from pydantic import BaseModel
 import requests
 
 
-
-
 app = Flask(__name__)
 
 # Define routes to serve HTML templates
@@ -51,6 +49,13 @@ def viewSalary():
     salary_data = salary_data.json()
     return render_template('index_view_salary.html', url_for=url_for, salary_data= salary_data)
 
+@app.route('/deleteSalaryPage')
+def DeleteSalaryPage():
+    return render_template('index_delete_salary.html', url_for= url_for)
+
+@app.route('/addSalaryPage')
+def getAddSalaryPage():
+    return render_template('index_add_salary.html', url_for= url_for)
 
 @app.route('/view')
 def view():
