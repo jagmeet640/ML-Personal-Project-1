@@ -120,6 +120,16 @@ def addEmployeeToDb():
         return redirect(url_for('view'))
     else:
         return "Failed to add salary!!!"
+    
+@app.route('/deleteSalaryFromDb', methods=['POST'])
+def deleteSalaryFromDb():
+    employee_ID = int(request.form.get('EmpID'))
+    print(employee_ID)
+    response = requests.delete(f'http://127.0.0.1:8000/deleteSalary/{employee_ID}')
+    if response.status_code == 200:
+        return redirect(url_for('view'))
+    else:
+        return "salary delet failed!!!"
 
 
 if __name__ == '__main__':

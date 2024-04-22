@@ -230,7 +230,7 @@ def deleteSalary(empID: int):
         ) as connection:
             with connection.cursor() as cursor:
                 print("in delete")
-                print(empID)
+                # print(empID)
                 sql_query = 'delete from Salary where EmpID = %s'
                 cursor.execute(sql_query, (empID,))
                 connection.commit()
