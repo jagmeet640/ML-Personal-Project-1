@@ -4,23 +4,61 @@ body {
     padding: 0;
 }
 
+/* #view_employees {
+    width: 100%;
+    border-collapse: collapse;
+} */
+
+/* #employee_column_name {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: aqua;
+} */
+
+/* .column_headers {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #f2f2f2;
+} */
+
+.view_employee_box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.view_employee_box h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
 #view_employees {
     width: 100%;
     border-collapse: collapse;
 }
 
-#employee_column_name {
-    padding: 8px;
+.column_headers {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
-    background-color: aqua;
 }
 
-.column_headers {
-    padding: 8px;
-    text-align: left;
+#employee_column_name {
+    padding: 10px;
     border-bottom: 1px solid #ddd;
-    background-color: #f2f2f2;
+}
+
+#employee_column_name:first-child {
+    border-left: 1px solid #ddd;
+}
+
+#employee_column_name:last-child {
+    border-right: 1px solid #ddd;
 }
 
 .sidenav {

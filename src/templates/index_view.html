@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_main.css') }}">
 
 </head>
+
 <body>
     <div class="sidenav">
         <a href="/">Dashboard</a>
@@ -19,30 +21,35 @@
     </div>
 
     <div class="main_box">
-        <h1>Employee Database</h1>
 
-    <table id="view_employees">
-        <tr>
-            <th class="column_headers">ID</th>
-            <th class="column_headers">Name</th>
-            <th class="column_headers">Age</th>
-            <th class="column_headers">Number</th>
-            <th class="column_headers">Department</th>
-            <th class="column_headers">Post</th>
-        </tr>
-        {% for employee in employee_data %}
-            <tr>
-                <td id="employee_column_name">{{ employee[0] }}</td>
-                <td id="employee_column_name">{{ employee[1] }}</td>
-                <td id="employee_column_name">{{ employee[2] }}</td>
-                <td id="employee_column_name">{{ employee[3] }}</td>
-                <td id="employee_column_name">{{ employee[4] }}</td>
-                <td id="employee_column_name">{{ employee[5] }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+        <div class="view_employee_box">
+            <h1>Employee Database</h1>
+
+            <table id="view_employees">
+                <tr>
+                    <th class="column_headers">ID</th>
+                    <th class="column_headers">Name</th>
+                    <th class="column_headers">Age</th>
+                    <th class="column_headers">Number</th>
+                    <th class="column_headers">Department</th>
+                    <th class="column_headers">Post</th>
+                </tr>
+                {% for employee in employee_data %}
+                <tr>
+                    <td id="employee_column_name">{{ employee[0] }}</td>
+                    <td id="employee_column_name">{{ employee[1] }}</td>
+                    <td id="employee_column_name">{{ employee[2] }}</td>
+                    <td id="employee_column_name">{{ employee[3] }}</td>
+                    <td id="employee_column_name">{{ employee[4] }}</td>
+                    <td id="employee_column_name">{{ employee[5] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
     </div>
-    
-    
+
+
 </body>
+
 </html>
