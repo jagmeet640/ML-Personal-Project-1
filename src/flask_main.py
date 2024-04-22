@@ -54,7 +54,7 @@ def DeleteSalaryPage():
     return render_template('index_delete_salary.html', url_for= url_for)
 
 @app.route('/addSalaryPage')
-def getAddSalaryPage():
+def GetAddSalaryPage():
     return render_template('index_add_salary.html', url_for= url_for)
 
 @app.route('/view')
@@ -105,12 +105,22 @@ def deleteEmployee():
     else:
         return "Failed to delete employee"
 
+@app.route('/addSalaryToDB', methods=['POST', 'GET'])
+def addEmployeeToDb():
+    salary_data = {
+        'EmpID' : request.form['EmpID'],
+        'name' : request.form['name'],
+        'JoinDate' : request.form['JoinDate'],
+        'HourlyRate': float(request.form['HourlyRate']),
+        'BaseSalary' : float(request.form['BaseSalary'])
+    }
 
-# @app.route('/api/salaries')
-# def get_salaries():
-#     # Make a request to your FastAPI endpoint to fetch salary data
-#     response = requests.get('http://127.0.0.1:8000/Salaries/')
-#     return jsonify(response.json())
+    response = requests.post('http://127.0.0.1:8000/addSalary/', json=salary_data)
+    if response.status_code == 200:
+        return redirect(url_for('view'))
+    else:
+        return "Failed to add salary!!!"
+
 
 if __name__ == '__main__':
     app.run(debug=True)

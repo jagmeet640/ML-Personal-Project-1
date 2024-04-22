@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_main.css') }}">
     <title>Document</title>
 </head>
 <!-- to be changed -->
@@ -16,19 +17,22 @@
     </div>  
     <div class="main_box">
         <h1>Add Employee</h1>
-    <form action="/addEmployees" method="post">
+    <form action="/addSalaryToDB" method="post">
         <label for="EmpID">Employee ID:</label><br>
         <input type="text" id="EmpID" name="EmpID"><br>
+
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name"><br>
-        <label for="age">Age:</label><br>
-        <input type="text" id="age" name="age"><br>
-        <label for="number">Number:</label><br>
-        <input type="text" id="number" name="number"><br>
-        <label for="department">Department:</label><br>
-        <input type="text" id="department" name="department"><br>
-        <label for="post">Post:</label><br>
-        <input type="text" id="post" name="post"><br><br>
+
+        <label for="JoinDate">Joining Date:</label><br>
+        <input type="text" id="JoinDate" name="JoinDate"><br>
+
+        <label for="HourlyRate">Hourly Rate:</label><br>
+        <input type="text" id="HourlyRate" name="HourlyRate"><br>
+
+        <label for="BaseSalary">Base Salary:</label><br>
+        <input type="text" id="BaseSalary" name="BaseSalary"><br>
+ 
         <input type="submit" value="Submit">
     </form>
     </div>
