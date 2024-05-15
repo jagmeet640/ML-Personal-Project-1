@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Index_main.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="sidenav">
+        <a href="/">Dashboard</a>
+        <a href="/view">View Employees</a>
+        <a href="/AddEmployeePage">Add Employee</a>
+        <a href="/deleteEmployeePage">Delete Employee</a>
+        <a href="/viewSalaryPage">Find Salary</a>
+        <a href="/addSalaryPage">Add Salary</a>
+        <a href="/deleteSalaryPage">Delete Salary</a>
+    </div>
+
+    <div class="main_box">
+        <h1>Delete Employee</h1>
+
+        <form action="/deleteSalaryFromDb" method="post"> <!-- Corrected method attribute to "post" -->
+            <label for="EmpID">Enter ID To Be Deleted:</label>
+            <input type="text" id="EmpID" name="EmpID"/>
+            <input type="submit" value="Submit">
+        </form>
+        
+    </div>
+
+    
+
+
+</body>
+</html>

@@ -57,6 +57,29 @@ def DeleteSalaryPage():
 def GetAddSalaryPage():
     return render_template('index_add_salary.html', url_for= url_for)
 
+@app.route('/addLeavePage')
+def AddLeavePage():
+    return render_template('index_add_leave_count.html', url_for=url_for)
+
+@app.route('/addLeave')
+def addLeave():
+    # this is a function for calling the api to add a leave count in the database
+    pass
+
+@app.route('/viewLeaveCount')
+def viewLeaveCount():
+    # this is a function where the leave counts of employees are viewed from the database
+    pass
+
+@app.route('/deleteLeaveCounPage')
+def deleteLeaveCountPage():
+    render_template('index_delete_leave_count.html')
+
+@app.route('/deleteLeaveCountApi')
+def deleteLeaveCountApi():
+    # this is a function where the leave counts of employees can be delete based on the employee ID from the database
+    pass
+
 @app.route('/view')
 def view():
     employee_data = requests.get('http://127.0.0.1:8000/employees/')
